@@ -33,38 +33,73 @@ const props = defineProps({
     },
     default: "large",
   },
+  uppercase: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const buttonClasses = computed(() => {
   const colors = {
-    primary:
-      "bg-primary text-white border-indigo-900 hover:bg-indigo-900 focus:bg-indigo-900 focus:ring-primary",
-    secondary:
-      "bg-secondary text-white border-emerald-500 hover:bg-emerald-500 focus:bg-emerald-500 focus:ring-secondary",
-    "bs-primary":
-      "bg-blue-500 text-white border-blue-600 hover:bg-blue-600 focus:bg-blue-600 focus:ring-blue-500",
-    "bs-secondary":
-      "bg-gray-500 text-white border-gray-600 hover:bg-gray-600 focus:bg-gray-600 focus:ring-gray-500",
-    "bs-success":
-      "bg-green-500 text-white border-green-600 hover:bg-green-600 focus:bg-green-600 focus:ring-green-500",
-    "bs-warning":
-      "bg-yellow-500 text-white border-yellow-600 hover:bg-yellow-600 focus:bg-yellow-600 focus:ring-yellow-500",
-    "bs-danger":
-      "bg-red-500 text-white border-red-600 hover:bg-red-600 focus:bg-red-600 focus:ring-red-500",
-    "bs-info":
-      "bg-cyan-600 text-white border-cyan-700 hover:bg-cyan-700 focus:bg-cyan-700 focus:ring-cyan-600",
+    primary: "btn--primary",
+    secondary: "btn--secondary",
+    "bs-primary": "btn--bs-primary",
+    "bs-secondary": "btn--bs-secondary",
+    "bs-success": "btn--bs-success",
+    "bs-warning": "btn--bs-warning",
+    "bs-danger": "btn--bs-danger",
+    "bs-info": "btn--bs-info",
   };
 
   const sizes = {
-    small: "px-2.5 py-1.5 text-tn",
-    medium: "px-2.7 py-1.7 text-sm",
-    large: "px-3 py-2",
+    small: "btn--small",
+    medium: "btn--medium",
+    large: "btn--large",
   };
 
-  return [
-    "border rounded-lg font-medium transition-all duration-300 focus:ring-2 focus:outline-none focus:-translate-y-0.5 hover:-translate-y-0.5",
-    colors[props.type],
-    sizes[props.size],
-  ];
+  const isUppercase = props.uppercase ? "btn--uppercase" : "";
+
+  return ["btn", colors[props.type], sizes[props.size], isUppercase];
 });
 </script>
+<style scoped>
+.btn {
+  @apply border rounded-full font-medium transition-all duration-300 focus:outline-none focus:-translate-y-0.5 hover:-translate-y-0.5;
+}
+.btn--small {
+  @apply px-4 py-2 text-xs;
+}
+.btn--medium {
+  @apply px-5 py-2.5 text-sm;
+}
+.btn--large {
+  @apply px-6 py-3 text-base;
+}
+.btn--primary {
+  @apply bg-primary text-white border-indigo-900 focus:bg-indigo-900 focus:border-primary;
+}
+.btn--secondary {
+  @apply bg-secondary text-white border-emerald-500 focus:bg-emerald-500 focus:border-secondary;
+}
+.btn--bs-primary {
+  @apply bg-blue-500 text-white border-blue-600 focus:bg-blue-600 focus:border-blue-500;
+}
+.btn--bs-secondary {
+  @apply bg-gray-500 text-white border-gray-600 focus:bg-gray-600 focus:border-gray-500;
+}
+.btn--bs-success {
+  @apply bg-green-500 text-white border-green-600 focus:bg-green-600 focus:border-green-500;
+}
+.btn--bs-warning {
+  @apply bg-yellow-500 text-white border-yellow-600 focus:bg-yellow-600 focus:border-yellow-500;
+}
+.btn--bs-danger {
+  @apply bg-red-500 text-white border-red-600 focus:bg-red-600 focus:border-red-500;
+}
+.btn--bs-info {
+  @apply bg-cyan-600 text-white border-cyan-700 focus:bg-cyan-700 focus:border-cyan-600;
+}
+.btn--uppercase {
+  @apply uppercase;
+}
+</style>
