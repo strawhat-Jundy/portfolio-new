@@ -1,6 +1,5 @@
 import Button from "./Button.vue";
 import "../../style.css";
-import { fn } from "@storybook/test";
 
 export default {
   title: "UI/Button",
@@ -24,6 +23,9 @@ export default {
       control: "select",
       options: ["large", "medium", "small"],
     },
+    uppercase: {
+      control: "boolean",
+    },
   },
 };
 
@@ -31,7 +33,6 @@ export const Primary = {
   args: {
     type: "primary",
     default: "Primary",
-    onClick: fn(() => "This is a test."),
   },
 };
 
@@ -68,12 +69,26 @@ export const BSPrimary = {
     type: "bs-primary",
     default: "BS Primary",
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Bootstrap default PRIMARY button",
+      },
+    },
+  },
 };
 
 export const BSSecondary = {
   args: {
     type: "bs-secondary",
     default: "BS Secondary",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Bootstrap default SECONDARY button",
+      },
+    },
   },
 };
 
@@ -82,12 +97,26 @@ export const BSSuccess = {
     type: "bs-success",
     default: "BS Success",
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Bootstrap default SUCCESS button",
+      },
+    },
+  },
 };
 
 export const BSWarning = {
   args: {
     type: "bs-warning",
     default: "BS Warning",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Bootstrap default WARNING button",
+      },
+    },
   },
 };
 
@@ -96,11 +125,25 @@ export const BSDanger = {
     type: "bs-danger",
     default: "BS Danger",
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Bootstrap default DANGER button",
+      },
+    },
+  },
 };
 
 export const BSInfo = {
   args: {
     type: "bs-info",
     default: "BS Info",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Bootstrap default INFO button",
+      },
+    },
   },
 };
