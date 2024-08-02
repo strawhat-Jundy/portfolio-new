@@ -12,7 +12,7 @@ defineEmits(["click"]);
 const props = defineProps({
   type: {
     type: String,
-    validator(value) {
+    validator(val) {
       return [
         "primary",
         "secondary",
@@ -22,14 +22,14 @@ const props = defineProps({
         "bs-warning",
         "bs-danger",
         "bs-info",
-      ].includes(value);
+      ].includes(val);
     },
     default: "primary",
   },
   size: {
     type: String,
-    validator(value) {
-      return ["large", "medium", "small"].includes(value);
+    validator(val) {
+      return ["large", "medium", "small"].includes(val);
     },
     default: "large",
   },
@@ -57,11 +57,12 @@ const buttonClasses = computed(() => {
     large: "btn--large",
   };
 
-  const isUppercase = props.uppercase ? "btn--uppercase" : "";
+  const isUppercase = props.uppercase && "btn--uppercase";
 
   return ["btn", colors[props.type], sizes[props.size], isUppercase];
 });
 </script>
+
 <style scoped>
 .btn {
   @apply border rounded-full font-medium transition-all duration-300 focus:outline-none focus:-translate-y-0.5 hover:-translate-y-0.5;
