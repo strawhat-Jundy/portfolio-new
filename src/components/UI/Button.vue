@@ -1,6 +1,10 @@
 <template>
-  <button type="button" :class="buttonClasses" @click="$emit('click')">
-    <slot />
+  <button
+    type="button"
+    :class="[classes, buttonClasses]"
+    @click="$emit('click')"
+  >
+    <slot>Button</slot>
   </button>
 </template>
 
@@ -37,6 +41,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  classes: String,
 });
 
 const buttonClasses = computed(() => {
