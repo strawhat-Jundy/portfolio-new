@@ -8,7 +8,7 @@
     @apply p-0 m-0 font-montserrat font-light scroll-smooth box-border;
   }
   /* MODAL */
-  .modal-overlay--fixed {
+  .modal__overlay--fixed {
     @apply fixed w-full h-full inset-0 overflow-x-hidden;
   }
   .scroll {
