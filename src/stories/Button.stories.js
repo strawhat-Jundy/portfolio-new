@@ -1,5 +1,5 @@
-import Button from "./Button.vue";
-import "../../style.css";
+import Button from "../components/UI/Button.vue";
+import "../style.css";
 
 export default {
   title: "UI/Button",
@@ -22,9 +22,6 @@ export default {
     size: {
       control: "select",
       options: ["large", "medium", "small"],
-    },
-    uppercase: {
-      control: "boolean",
     },
   },
 };

@@ -3,5 +3,16 @@ import { createPinia } from "pinia";
 import "./style.css";
 import App from "./App.vue";
 import router from "./router";
+import registerDirectives from "./directives";
 
-createApp(App).use(router).use(createPinia()).mount("#app");
+const app = createApp(App);
+const pinia = createPinia();
+
+/** PROVIDERS **/
+app.use(router);
+app.use(pinia);
+
+/** DIRECTIVES **/
+registerDirectives(app);
+
+app.mount("#app");
