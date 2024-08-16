@@ -11,25 +11,13 @@
           <div class="modal__header" v-if="showClose || title || $slots.title">
             <h3 v-if="title">{{ title }}</h3>
             <slot v-else name="title" />
-            <div
+            <button
               class="modal__btn--close"
               v-if="showClose"
               @click="$emit('close')"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </div>
+              <Close stroke-width="2" />
+            </button>
           </div>
           <slot />
           <div class="modal__footer" v-if="$slots.footer">
@@ -43,6 +31,7 @@
 
 <script setup>
 import { computed, ref, watchEffect } from "vue";
+import Close from "../Icons/Close.vue";
 
 /* MODAL EMITTERS */
 const emit = defineEmits(["close"]);
@@ -141,7 +130,7 @@ watchEffect(() => {
   @apply text-3xl font-bold;
 }
 .modal__btn--close {
-  @apply @3xl:w-10 @3xl:h-10 @[640px]:w-8 @[640px]:h-8 w-6 h-6 rounded-full cursor-pointer ml-auto;
+  @apply @3xl:w-10 @3xl:h-10 @[640px]:w-8 @[640px]:h-8 w-6 h-6 rounded-full ml-auto;
 }
 .modal__btn--close svg {
   @apply text-gray-400 mix-blend-difference;

@@ -14,19 +14,7 @@
             class="notification__btn--close"
             @click="closeNotif(index)"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <Close stroke-width="2" />
           </button>
         </div>
         <div class="notification__content">
@@ -39,6 +27,7 @@
 </template>
 <script setup>
 import { computed, ref } from "vue";
+import Close from "../Icons/Close.vue";
 
 /* PROPS */
 const props = defineProps({
@@ -104,7 +93,7 @@ defineExpose({
   @apply w-full min-h-28 px-5 py-4 bg-white border border-gray-200 shadow-lg rounded-md relative overflow-hidden;
 }
 .notification.after {
-  @apply after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:animate-shrink after:animate-duration-[v-bind('duration')];
+  @apply after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:animate-[shrink] after:animate-duration-[v-bind('duration')];
 }
 .after--primary {
   @apply after:bg-primary;
