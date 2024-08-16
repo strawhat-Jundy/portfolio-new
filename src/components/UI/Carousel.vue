@@ -14,38 +14,14 @@
           :class="{ degrade: isFirstImage }"
           @click="prevSlide"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
-          </svg>
+          <ArrowLeft />
         </button>
         <button
           class="carousel__btn carousel__btn--right"
           :class="{ degrade: isLastImage }"
           @click="nextSlide"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
-          </svg>
+          <ArrowRight />
         </button>
       </div>
       <div
@@ -90,6 +66,8 @@
 </template>
 
 <script setup>
+import ArrowRight from "../Icons/ArrowRight.vue";
+import ArrowLeft from "../Icons/ArrowLeft.vue";
 import { computed, onMounted, reactive, ref } from "vue";
 
 /* PROPS */
