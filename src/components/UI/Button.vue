@@ -1,7 +1,8 @@
 <template>
   <button
     type="button"
-    :class="[classes, buttonClasses]"
+    v-bind="$attrs"
+    :class="buttonClasses"
     @click="$emit('click')"
   >
     <slot>Button</slot>
@@ -11,8 +12,15 @@
 <script setup>
 import { computed } from "vue";
 
+/* EMITTERS */
 defineEmits(["click"]);
 
+/* INHERIT COMPONENT ATTRIBUTES */
+defineOptions({
+  inheritAttrs: false,
+});
+
+/* PROPS */
 const props = defineProps({
   type: {
     type: String,
@@ -41,9 +49,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  classes: String,
 });
 
+/* CLASSES */
 const buttonClasses = computed(() => {
   const colors = {
     primary: "btn--primary",

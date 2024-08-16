@@ -4,48 +4,50 @@
     @touchstart="handleTouchStart"
     @touchmove="handleTouchMove"
     @touchend="handleTouchEnd"
-    v-onLeftKey="debouncedPrevSlide"
-    v-onRightKey="debouncedNextSlide"
+    v-onLeftKey="prevSlide"
+    v-onRightKey="nextSlide"
   >
     <div class="carousel__wrapper">
-      <button
-        class="carousel__btn carousel__btn--left"
-        :class="{ degrade: isFirstImage }"
-        @click="debouncedPrevSlide"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1"
-          stroke="currentColor"
+      <div class="carousel__nav">
+        <button
+          class="carousel__btn carousel__btn--left"
+          :class="{ degrade: isFirstImage }"
+          @click="prevSlide"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15.75 19.5L8.25 12l7.5-7.5"
-          />
-        </svg>
-      </button>
-      <button
-        class="carousel__btn carousel__btn--right"
-        :class="{ degrade: isLastImage }"
-        @click="debouncedNextSlide"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1"
-          stroke="currentColor"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
+          </svg>
+        </button>
+        <button
+          class="carousel__btn carousel__btn--right"
+          :class="{ degrade: isLastImage }"
+          @click="nextSlide"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M8.25 4.5l7.5 7.5-7.5 7.5"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </button>
+      </div>
       <div
         class="carousel__slide"
         v-for="(image, index) in imageObjects"
@@ -88,9 +90,9 @@
 </template>
 
 <script setup>
-import { debounce } from "lodash";
 import { computed, onMounted, reactive, ref } from "vue";
 
+/* PROPS */
 const props = defineProps({
   images: {
     type: Array,
@@ -120,12 +122,15 @@ const props = defineProps({
   },
   loop: Boolean,
   height: {
-    type: [Number, String],
-    default: "100vh",
+    type: Number,
+    default: 700,
   },
 });
 
-/* IMAGE HANDLING */
+/* DIMENSION */
+const carouselDimension = computed(() => `calc(${props.height}/${1200}*100%)`);
+
+/* IMAGE HANDLER */
 const imageObjects = computed(() =>
   props.images.map((image) =>
     typeof image === "string"
@@ -142,62 +147,71 @@ const imageObjects = computed(() =>
   )
 );
 
-/* CAROUSEL HEIGHT */
-const carouselHeight = computed(() =>
-  typeof props.height === "number" ? `${props.height / 16}rem` : props.height
-);
-
-/* NAVIGATION */
+/* NAVIGATION HANDLER */
 const currentSlide = ref(1);
 const direction = ref("next");
+const isAnimating = ref(false);
 
 const nextSlide = () => {
+  if (isAnimating.value) return;
+
+  isAnimating.value = true;
   direction.value = "next";
-  currentSlide.value =
-    currentSlide.value === props.images.length
-      ? props.loop
-        ? 1
-        : props.images.length
-      : currentSlide.value + 1;
+
+  if (currentSlide.value === props.images.length) {
+    currentSlide.value = props.loop ? 1 : props.images.length;
+  } else {
+    currentSlide.value++;
+  }
+
+  resetAnimationState();
 };
 
 const prevSlide = () => {
+  if (isAnimating.value) return;
+
+  isAnimating.value = true;
   direction.value = "prev";
-  currentSlide.value =
-    currentSlide.value === 1
-      ? props.loop
-        ? props.images.length
-        : 1
-      : currentSlide.value - 1;
+
+  if (currentSlide.value === 1) {
+    currentSlide.value = props.loop ? props.images.length : 1;
+  } else {
+    currentSlide.value--;
+  }
+
+  resetAnimationState();
 };
 
-const debouncedNextSlide = debounce(nextSlide, 250);
-const debouncedPrevSlide = debounce(prevSlide, 250);
+const resetAnimationState = () => {
+  setTimeout(() => {
+    isAnimating.value = false;
+  }, 500);
+};
 
 const isFirstImage = computed(() => !props.loop && currentSlide.value === 1);
 const isLastImage = computed(
   () => !props.loop && currentSlide.value === props.images.length
 );
 
-/* PAGINATION */
+/* PAGINATION HANDLER */
 const slideTo = (index) => {
   direction.value = index + 1 > currentSlide.value ? "next" : "prev";
   currentSlide.value = index + 1;
 };
 
-/* TRANSITION */
+/* TRANSITION HANDLER */
 const transitionName = computed(() =>
   props.animation === "slide" ? `slide-${direction.value}` : props.animation
 );
 
-/* AUTOPLAY */
+/* AUTOPLAY HANDLER */
 const startAutoplay = () => {
   if (props.autoplay) {
     setInterval(nextSlide, props.autoplay);
   }
 };
 
-/*------- TOUCH DEVICES -------*/
+/* ONTOUCH HANDLER */
 const touchState = reactive({
   startX: 0,
   offset: 0,
@@ -216,7 +230,6 @@ const handleTouchEnd = () => {
   else if (touchState.offset > 50) prevSlide();
   touchState.offset = 0;
 };
-/* ------------------------------- */
 
 /* MOUNTED HOOK */
 onMounted(startAutoplay);
@@ -224,13 +237,13 @@ onMounted(startAutoplay);
 
 <style scoped>
 .carousel {
-  @apply @container w-full h-[v-bind('carouselHeight')] overflow-hidden;
+  @apply @container w-full;
 }
 .carousel__wrapper {
-  @apply relative h-full flex items-center justify-between;
+  @apply relative overflow-hidden pt-[v-bind('carouselDimension')];
 }
 .carousel__slide {
-  @apply absolute inset-0;
+  @apply absolute inset-0 h-full;
 }
 .carousel__image {
   @apply h-full w-full;
@@ -247,8 +260,11 @@ onMounted(startAutoplay);
 .caption__paragraph {
   @apply text-white text-center text-base @3xl:text-xl max-md:text-base leading-none font-normal mb-0;
 }
+.carousel__nav {
+  @apply absolute inset-0 w-full h-full flex items-center justify-between;
+}
 .carousel__btn {
-  @apply flex items-center justify-center @3xl:w-14 @3xl:h-14 @md:w-10 @md:h-10 w-8 h-8 p-2 relative z-[2] text-white rounded-full bg-black bg-opacity-30 cursor-pointer transition-all duration-300 hover:bg-opacity-50;
+  @apply @3xl:w-14 @3xl:h-14 @md:w-10 @md:h-10 w-8 h-8 p-2 relative z-[2] text-white rounded-full bg-black bg-opacity-30 cursor-pointer transition-all duration-300 hover:bg-opacity-50;
 }
 .carousel__btn--left {
   @apply -translate-x-full;

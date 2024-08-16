@@ -4,31 +4,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build"
+    "preview": "vite preview"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
     "pinia": "^2.2.0",
     "vue": "^3.4.31",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.6.1",
-    "@storybook/addon-essentials": "^8.2.6",
-    "@storybook/addon-interactions": "^8.2.6",
-    "@storybook/addon-links": "^8.2.6",
-    "@storybook/addon-onboarding": "^8.2.6",
-    "@storybook/blocks": "^8.2.6",
-    "@storybook/test": "^8.2.6",
-    "@storybook/vue3": "^8.2.6",
-    "@storybook/vue3-vite": "^8.2.6",
     "@tailwindcss/container-queries": "^0.1.1",
     "@vitejs/plugin-vue": "^5.0.5",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.40",
-    "storybook": "^8.2.6",
     "tailwindcss": "^3.4.7",
     "vite": "^5.3.4"
   }

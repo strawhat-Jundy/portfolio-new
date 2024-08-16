@@ -2,5 +2,8 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   presets: [require("./tailwind/presets")], // theme presets
-  plugins: [require("@tailwindcss/container-queries")],
+  plugins: [
+    require("@tailwindcss/container-queries"),
+    require("./tailwind/plugins/animation"),
+  ],
 };

@@ -8,28 +8,28 @@
           :class="`modal__${transition}`"
           v-onEsc="() => $emit('close')"
         >
-          <div
-            class="modal__close--btn"
-            v-if="showClose"
-            @click="$emit('close')"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </div>
-          <div class="modal__header">
+          <div class="modal__header" v-if="showClose || title || $slots.title">
             <h3 v-if="title">{{ title }}</h3>
             <slot v-else name="title" />
+            <div
+              class="modal__btn--close"
+              v-if="showClose"
+              @click="$emit('close')"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
           </div>
           <slot />
           <div class="modal__footer" v-if="$slots.footer">
@@ -44,8 +44,10 @@
 <script setup>
 import { computed, ref, watchEffect } from "vue";
 
+/* MODAL EMITTERS */
 const emit = defineEmits(["close"]);
 
+/* PROPS */
 const props = defineProps({
   modal: {
     type: Boolean,
@@ -55,10 +57,6 @@ const props = defineProps({
   width: {
     type: [Number, String],
     default: 800,
-  },
-  height: {
-    type: [Number, String],
-    default: "auto",
   },
   title: String,
   showClose: Boolean,
@@ -77,14 +75,9 @@ const props = defineProps({
   },
 });
 
-/* MODAL WIDTH */
+/* WIDTH HANDLER */
 const modalWidth = computed(() =>
   typeof props.width === "number" ? `${props.width / 16}rem` : props.width
-);
-
-/* MODAL HEIGHT */
-const modalHeight = computed(() =>
-  typeof props.width === "number" ? `${props.height / 16}rem` : props.height
 );
 
 /* CLOSE MODAL ON OUTSIDE WRAPPER */
@@ -139,18 +132,18 @@ watchEffect(() => {
   @apply flex items-center p-1 justify-center h-screen w-full fixed inset-0 z-20 bg-black bg-opacity-20;
 }
 .modal__wrapper {
-  @apply @container h-[v-bind('modalHeight')] sm:max-h-[calc(100%-5rem)] max-sm:w-full max-sm:h-full w-[v-bind('modalWidth')] bg-white rounded-lg shadow-lg overflow-auto p-2 relative;
+  @apply @container h-auto sm:max-h-[calc(100%-5rem)] max-sm:w-full max-sm:h-full w-[v-bind('modalWidth')] bg-white rounded-lg shadow-lg overflow-auto p-2 relative;
 }
 .modal__header {
-  @apply w-full py-2 min-h-[3.25rem] max-sm:min-h-11;
+  @apply flex w-full py-2 min-h-[3.25rem] max-sm:min-h-11 relative;
 }
 .modal__header h3 {
   @apply text-3xl font-bold;
 }
-.modal__close--btn {
-  @apply absolute @3xl:w-10 @3xl:h-10 @[640px]:w-8 @[640px]:h-8 w-6 h-6 z-[1] right-4 top-4 rounded-full cursor-pointer;
+.modal__btn--close {
+  @apply @3xl:w-10 @3xl:h-10 @[640px]:w-8 @[640px]:h-8 w-6 h-6 rounded-full cursor-pointer ml-auto;
 }
-.modal__close--btn svg {
+.modal__btn--close svg {
   @apply text-gray-400 mix-blend-difference;
 }
 .modal__footer {
