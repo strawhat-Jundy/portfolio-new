@@ -66,9 +66,9 @@
 </template>
 
 <script setup>
+import { computed, onMounted, reactive, ref } from "vue";
 import ArrowRight from "../Icons/ArrowRight.vue";
 import ArrowLeft from "../Icons/ArrowLeft.vue";
-import { computed, onMounted, reactive, ref } from "vue";
 
 /* PROPS */
 const props = defineProps({
