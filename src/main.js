@@ -8,9 +8,11 @@ import registerDirectives from "./directives";
 const app = createApp(App);
 const pinia = createPinia();
 
-/** PROVIDERS **/
+/** PLUGINS **/
 app.use(router);
 app.use(pinia);
+
+/** PROVIDERS **/
 
 /** DIRECTIVES **/
 registerDirectives(app);
