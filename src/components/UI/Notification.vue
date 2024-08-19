@@ -70,10 +70,7 @@ const notificationClasses = computed(() => {
     error: "after--error",
   };
 
-  if (props.duration) {
-    return ["after", types[props.type]];
-  }
-  return "";
+  return props.duration ? ["after", types[props.type]] : "";
 });
 
 /* NOTIFICATION::AFTER DURATION HANDLER */
@@ -93,7 +90,7 @@ defineExpose({
   @apply w-full min-h-28 px-5 py-4 bg-white border border-gray-200 shadow-lg rounded-md relative overflow-hidden;
 }
 .notification.after {
-  @apply after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:animate-[shrink] after:animate-duration-[v-bind('duration')];
+  @apply after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:animate-[shrink] after:animate-duration-[v-bind('duration')];
 }
 .after--primary {
   @apply after:bg-primary;
