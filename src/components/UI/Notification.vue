@@ -62,16 +62,9 @@ const closeNotif = (index) => {
 };
 
 /* CLASSES */
-const notificationClasses = computed(() => {
-  const types = {
-    primary: "after--primary",
-    success: "after--success",
-    warning: "after--warning",
-    error: "after--error",
-  };
-
-  return props.duration ? ["after", types[props.type]] : "";
-});
+const notificationClasses = computed(() =>
+  props.duration ? ["after", `after--${props.type}`] : ""
+);
 
 /* NOTIFICATION::AFTER DURATION HANDLER */
 const duration = computed(() => `${props.duration + 300}ms`);
@@ -84,7 +77,7 @@ defineExpose({
 
 <style scoped>
 .notification__container {
-  @apply w-full md:max-w-80 max-w-[calc(100%-0.75rem)] flex flex-col gap-4 fixed z-50 right-4 top-4;
+  @apply w-full md:max-w-80 max-w-[calc(100%-0.75rem)] flex flex-col gap-4 fixed z-[1000] right-4 top-4;
 }
 .notification {
   @apply w-full min-h-28 px-5 py-4 bg-white border border-gray-200 shadow-lg rounded-md relative overflow-hidden;
@@ -96,13 +89,13 @@ defineExpose({
   @apply after:bg-primary;
 }
 .after--success {
-  @apply after:bg-green-500;
+  @apply after:bg-bs-success;
 }
 .after--warning {
-  @apply after:bg-yellow-500;
+  @apply after:bg-bs-warning;
 }
 .after--error {
-  @apply after:bg-red-500;
+  @apply after:bg-bs-danger;
 }
 .notification__header {
   @apply flex items-center;

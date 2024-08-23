@@ -1,11 +1,11 @@
 <template>
-  <label class="toggle" :class="{ toggle__on: toggle }">
+  <label class="toggle">
     <input
       type="checkbox"
       :checked="toggle"
       @change="handleToggle($event.target.checked)"
     />
-    <div class="toggle__wrapper" :class="toggleSize" v-bind="$attrs">
+    <div class="toggle__wrapper" :class="toggleClasses" v-bind="$attrs">
       <div class="toggle__inner">
         <component
           class="toggle__icon"
@@ -34,10 +34,15 @@
 <script setup>
 import { computed, ref } from "vue";
 
+/* INHERIT COMPONENT ATTRIBUTES */
 defineOptions({
   inheritAttrs: false,
 });
+
+/* EMITTERS */
 const emit = defineEmits(["change"]);
+
+/* PROPS */
 const props = defineProps({
   modelValue: {
     type: Boolean,
@@ -66,26 +71,34 @@ const props = defineProps({
   },
 });
 
+/* SIZES */
 const toggleSize = computed(() => `toggle__${props.size}`);
 
+/* TOGGLE HANDLER */
 const toggle = ref(props.modelValue);
 
 const handleToggle = (value) => {
   emit("change", value);
   toggle.value = value;
 };
+
+/* CLASSES */
+const toggleClasses = computed(() => {
+  const toggleOn = toggle.value ? "toggle__on" : "";
+  return [`toggle__${props.size}`, toggleOn];
+});
 </script>
 <style scoped>
 .toggle {
-  @apply inline-flex items-center;
+  @apply inline-flex items-center align-middle select-none;
 }
 .toggle input {
   @apply sr-only;
 }
 .toggle__wrapper {
-  @apply inline-flex items-center border border-gray-100 relative bg-[v-bind('props.inactiveColor')] rounded-full overflow-hidden cursor-pointer;
+  @apply inline-flex items-center relative bg-[v-bind('props.inactiveColor')] rounded-full overflow-hidden cursor-pointer;
 }
-.toggle__on .toggle__wrapper {
+.toggle__on.toggle__wrapper {
   @apply bg-[v-bind('props.activeColor')];
 }
 .toggle__inner {
@@ -98,7 +111,7 @@ const handleToggle = (value) => {
   @apply text-white text-[80%] uppercase whitespace-nowrap text-ellipsis overflow-hidden px-2;
 }
 .toggle__action {
-  @apply absolute top-[3px] left-[4px] rounded-full transition-all bg-white overflow-hidden;
+  @apply absolute left-[4px] rounded-full transition-all bg-white overflow-hidden;
 }
 .toggle__inner :slotted(*),
 .toggle__action :slotted(*) {
@@ -116,14 +129,14 @@ const handleToggle = (value) => {
 .toggle__large .toggle__inner {
   @apply pl-6 pr-0;
 }
-.toggle__on .toggle__large .toggle__inner {
+.toggle__on.toggle__large .toggle__inner {
   @apply pl-0 pr-6;
 }
 .toggle__large .toggle__action {
   @apply w-6 h-6;
 }
-.toggle__on .toggle__large .toggle__action {
-  @apply left-[calc(100%-28px)];
+.toggle__on.toggle__large .toggle__action {
+  @apply left-[calc(100%-29px)];
 }
 .toggle__default {
   @apply min-w-[3.75rem] h-7;
@@ -131,14 +144,14 @@ const handleToggle = (value) => {
 .toggle__default .toggle__inner {
   @apply pl-5 pr-0;
 }
-.toggle__on .toggle__default .toggle__inner {
+.toggle__on.toggle__default .toggle__inner {
   @apply pl-0 pr-5;
 }
 .toggle__default .toggle__action {
   @apply w-5 h-5;
 }
-.toggle__on .toggle__default .toggle__action {
-  @apply left-[calc(100%-24px)];
+.toggle__on.toggle__default .toggle__action {
+  @apply left-[calc(100%-25px)];
 }
 .toggle__small {
   @apply min-w-12 h-6;
@@ -146,13 +159,13 @@ const handleToggle = (value) => {
 .toggle__small .toggle__inner {
   @apply pl-4 pr-0;
 }
-.toggle__on .toggle__small .toggle__inner {
+.toggle__on.toggle__small .toggle__inner {
   @apply pl-0 pr-4;
 }
 .toggle__small .toggle__action {
   @apply w-4 h-4;
 }
-.toggle__on .toggle__small .toggle__action {
-  @apply left-[calc(100%-20px)];
+.toggle__on.toggle__small .toggle__action {
+  @apply left-[calc(100%-21px)];
 }
 </style>

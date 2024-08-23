@@ -53,32 +53,15 @@ const props = defineProps({
 
 /* CLASSES */
 const buttonClasses = computed(() => {
-  const colors = {
-    primary: "btn--primary",
-    secondary: "btn--secondary",
-    "bs-primary": "btn--bs-primary",
-    "bs-secondary": "btn--bs-secondary",
-    "bs-success": "btn--bs-success",
-    "bs-warning": "btn--bs-warning",
-    "bs-danger": "btn--bs-danger",
-    "bs-info": "btn--bs-info",
-  };
-
-  const sizes = {
-    small: "btn--small",
-    medium: "btn--medium",
-    large: "btn--large",
-  };
-
   const isUppercase = props.uppercase && "btn--uppercase";
 
-  return ["btn", colors[props.type], sizes[props.size], isUppercase];
+  return ["btn", `btn--${props.type}`, `btn--${props.size}`, isUppercase];
 });
 </script>
 
 <style scoped>
 .btn {
-  @apply border rounded-full font-medium transition-all duration-300 focus:outline-none hover:-translate-y-0.5;
+  @apply rounded-full text-white font-medium transition-all duration-300 hover:-translate-y-0.5 select-none;
 }
 .btn--small {
   @apply px-4 py-2 text-xs;
@@ -90,28 +73,28 @@ const buttonClasses = computed(() => {
   @apply px-6 py-3 text-base;
 }
 .btn--primary {
-  @apply bg-primary text-white border-indigo-900 hover:bg-indigo-900;
+  @apply bg-primary;
 }
 .btn--secondary {
-  @apply bg-secondary text-white border-emerald-500 hover:bg-emerald-500;
+  @apply bg-secondary text-color-text-reverse;
 }
 .btn--bs-primary {
-  @apply bg-blue-500 text-white border-blue-600 hover:bg-blue-600;
+  @apply bg-bs-primary hover:bg-blue-600;
 }
 .btn--bs-secondary {
-  @apply bg-gray-500 text-white border-gray-600 hover:bg-gray-600;
+  @apply bg-bs-secondary hover:bg-gray-600;
 }
 .btn--bs-success {
-  @apply bg-green-500 text-white border-green-600 hover:bg-green-600;
+  @apply bg-bs-success hover:bg-green-600;
 }
 .btn--bs-warning {
-  @apply bg-yellow-500 text-white border-yellow-600 hover:bg-yellow-600;
+  @apply bg-bs-warning hover:bg-yellow-600;
 }
 .btn--bs-danger {
-  @apply bg-red-500 text-white border-red-600 hover:bg-red-600;
+  @apply bg-bs-danger hover:bg-red-600;
 }
 .btn--bs-info {
-  @apply bg-cyan-600 text-white border-cyan-700 hover:bg-cyan-700;
+  @apply bg-bs-info hover:bg-cyan-700;
 }
 .btn--uppercase {
   @apply uppercase;

@@ -1,13 +1,27 @@
 module.exports = {
+  darkMode: ["selector", "[data-theme='dark']"],
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ["Montserrat", "sans-serif"],
+        montserrat: ["Montserrat", "system-ui", "sans-serif"],
+        poppins: ["Poppins", "system-ui", "sans-serif"],
       },
       colors: {
-        primary: "rgb(19, 0, 90)",
-        secondary: "rgb(3, 201, 136)",
-        accent: "rgb(28, 130, 173)",
+        "bs-primary": "rgb(var(--bs-primary) / <alpha-value>)",
+        "bs-secondary": "rgb(var(--bs-secondary) / <alpha-value>)",
+        "bs-success": "rgb(var(--bs-success) / <alpha-value>)",
+        "bs-warning": "rgb(var(--bs-warning) / <alpha-value>)",
+        "bs-danger": "rgb(var(--bs-danger) / <alpha-value>)",
+        "bs-info": "rgb(var(--bs-info) / <alpha-value>)",
+        "scroll-track": "rgb(var(--scroll-track) / <alpha-value>)",
+        "scroll-thumb": "rgb(var(--scroll-thumb) / <alpha-value>)",
+        "scroll-thumb-h": "rgb(var(--scroll-thumb-hover) / <alpha-value>)",
+        primary: "rgb(var(--color-primary) / <alpha-value>)",
+        secondary: "rgb(var(--color-secondary) / <alpha-value>)",
+        "color-text": "rgb(var(--color-text) / <alpha-value>)",
+        "color-text-reverse": "rgb(var(--color-reverse) / <alpha-value>)",
+        "color-heading": "rgb(var(--color-heading) / <alpha-value>)",
+        body: "rgb(var(--color-background) / <alpha-value>)",
       },
       keyframes: {
         "slide-left": {
@@ -21,11 +35,6 @@ module.exports = {
           "0%": { width: "100%" },
           "100%": { width: "0" },
         },
-      },
-      animation: {
-        "slide-left": "slide-left 0.5s forwards",
-        "slide-up": "slide-up 0.5s forwards",
-        shrink: "shrink 0.5s ease-out",
       },
     },
   },

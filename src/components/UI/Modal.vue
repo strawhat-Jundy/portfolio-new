@@ -79,49 +79,40 @@ const handleClickOutside = (event) => {
 };
 
 /* ADD FIX SCROLL POSITION ON DOCUMENT ON OPEN MODAL */
-const currentScrollY = ref(null);
 const html = document.documentElement;
+const body = document.body;
 
 const isDocumentScrollable = computed(() => {
-  const body = document.body;
-
   const documentHeight = Math.max(
     body.scrollHeight,
-    html.scrollHeight,
     body.offsetHeight,
-    html.offsetHeight,
-    body.clientHeight,
-    html.clientHeight
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight
   );
 
   const viewportHeight = window.innerHeight;
+
+  console.log(documentHeight, viewportHeight);
 
   return documentHeight > viewportHeight;
 });
 
 watchEffect(() => {
   if (props.modal && isDocumentScrollable.value) {
-    currentScrollY.value = scrollY;
-    html.classList.add("modal__overlay--fixed");
-    html.style.top = `-${currentScrollY.value}px`;
+    body.classList.add("modal__overlay--hidden");
   } else {
-    html.classList.remove("modal__overlay--fixed", "scroll");
-    html.style.top = "";
-    html.scrollTo({
-      top: currentScrollY.value,
-      behavior: "instant",
-    });
-    currentScrollY.value = null;
+    body.classList.remove("modal__overlay--hidden");
   }
 });
 </script>
 
 <style scoped>
 .modal {
-  @apply flex items-center p-1 justify-center h-screen w-full fixed inset-0 z-20 bg-black bg-opacity-20;
+  @apply flex items-center p-1 justify-center h-screen w-full fixed inset-0 z-[800] bg-black bg-opacity-20 dark:bg-opacity-50;
 }
 .modal__wrapper {
-  @apply @container h-auto sm:max-h-[calc(100%-5rem)] max-sm:w-full max-sm:h-full w-[v-bind('modalWidth')] bg-white rounded-lg shadow-lg overflow-auto p-2 relative;
+  @apply @container h-auto sm:max-h-[calc(100%-5rem)] max-sm:w-full w-[v-bind('modalWidth')] bg-body rounded-lg shadow-lg overflow-auto p-2 relative;
 }
 .modal__header {
   @apply flex w-full py-2 min-h-[3.25rem] max-sm:min-h-11 relative;
