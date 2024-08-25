@@ -77,10 +77,10 @@ defineExpose({
 
 <style scoped>
 .notification__container {
-  @apply w-full md:max-w-80 max-w-[calc(100%-0.75rem)] flex flex-col gap-4 fixed z-[1000] right-4 top-4;
+  @apply w-full max-w-80 max-sm:max-w-60 flex flex-col gap-4 fixed z-[1000] right-4 top-4;
 }
 .notification {
-  @apply w-full min-h-28 px-5 py-4 bg-white border border-gray-200 shadow-lg rounded-md relative overflow-hidden;
+  @apply w-full min-h-28 max-sm:min-h-24 px-5 py-4 bg-background-accent border border-color-border shadow-lg rounded-md relative overflow-hidden;
 }
 .notification.after {
   @apply after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:animate-[shrink] after:animate-duration-[v-bind('duration')];
@@ -101,10 +101,13 @@ defineExpose({
   @apply flex items-center;
 }
 .notification__header h3 {
-  @apply text-lg font-bold pr-4;
+  @apply text-lg max-sm:text-sm font-bold pr-4;
 }
 .notification__btn--close {
-  @apply w-4 ml-auto text-gray-500;
+  @apply w-4 ml-auto;
+}
+.notification__btn--close svg {
+  @apply mix-blend-difference;
 }
 .notification__content {
   @apply mt-2;
@@ -112,7 +115,7 @@ defineExpose({
 .slide-move,
 .slide-enter-active,
 .slide-leave-active {
-  @apply transition-all duration-300 ease-in-out;
+  @apply duration-300 ease-in-out;
 }
 .slide-enter-from {
   @apply translate-x-full;

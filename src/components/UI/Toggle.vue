@@ -2,29 +2,29 @@
   <label class="toggle">
     <input
       type="checkbox"
-      :checked="toggle"
-      @change="handleToggle($event.target.checked)"
+      :checked="modelValue"
+      @change="$emit('update:modelValue', $event.target.checked)"
     />
     <div class="toggle__wrapper" :class="toggleClasses" v-bind="$attrs">
       <div class="toggle__inner">
         <component
           class="toggle__icon"
-          :is="toggle ? activeIcon : inactiveIcon"
+          :is="modelValue ? activeIcon : inactiveIcon"
           v-if="!activeText && !$slots.activeInner"
         ></component>
         <span class="toggle__text" v-if="activeText && !$slots.activeInner">{{
-          toggle ? activeText : inactiveText
+          modelValue ? activeText : inactiveText
         }}</span>
-        <slot v-else-if="toggle" name="activeInner" />
+        <slot v-else-if="modelValue" name="activeInner" />
         <slot v-else name="inactiveInner" />
       </div>
       <span class="toggle__action">
         <component
           v-if="!$slots.activeAction && !$slots.inactiveAction"
-          :is="toggle ? activeIcon : inactiveIcon"
+          :is="modelValue ? activeIcon : inactiveIcon"
           class="toggle__icon"
         ></component>
-        <slot v-else-if="toggle" name="activeAction" />
+        <slot v-else-if="modelValue" name="activeAction" />
         <slot v-else name="inactiveAction" />
       </span>
     </div>
@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 /* INHERIT COMPONENT ATTRIBUTES */
 defineOptions({
@@ -40,7 +40,7 @@ defineOptions({
 });
 
 /* EMITTERS */
-const emit = defineEmits(["change"]);
+const emit = defineEmits(["update:modelValue"]);
 
 /* PROPS */
 const props = defineProps({
@@ -71,20 +71,9 @@ const props = defineProps({
   },
 });
 
-/* SIZES */
-const toggleSize = computed(() => `toggle__${props.size}`);
-
-/* TOGGLE HANDLER */
-const toggle = ref(props.modelValue);
-
-const handleToggle = (value) => {
-  emit("change", value);
-  toggle.value = value;
-};
-
 /* CLASSES */
 const toggleClasses = computed(() => {
-  const toggleOn = toggle.value ? "toggle__on" : "";
+  const toggleOn = props.modelValue && "toggle__on";
   return [`toggle__${props.size}`, toggleOn];
 });
 </script>
@@ -102,7 +91,7 @@ const toggleClasses = computed(() => {
   @apply bg-[v-bind('props.activeColor')];
 }
 .toggle__inner {
-  @apply w-full h-full flex justify-center items-center transition-all;
+  @apply w-full h-full flex justify-center items-center;
 }
 .toggle__inner .toggle__icon {
   @apply stroke-white h-3/4;
@@ -111,7 +100,7 @@ const toggleClasses = computed(() => {
   @apply text-white text-[80%] uppercase whitespace-nowrap text-ellipsis overflow-hidden px-2;
 }
 .toggle__action {
-  @apply absolute left-[4px] rounded-full transition-all bg-white overflow-hidden;
+  @apply absolute left-[4px] rounded-full bg-white overflow-hidden;
 }
 .toggle__inner :slotted(*),
 .toggle__action :slotted(*) {

@@ -93,8 +93,6 @@ const isDocumentScrollable = computed(() => {
 
   const viewportHeight = window.innerHeight;
 
-  console.log(documentHeight, viewportHeight);
-
   return documentHeight > viewportHeight;
 });
 
@@ -112,7 +110,7 @@ watchEffect(() => {
   @apply flex items-center p-1 justify-center h-screen w-full fixed inset-0 z-[800] bg-black bg-opacity-20 dark:bg-opacity-50;
 }
 .modal__wrapper {
-  @apply @container h-auto sm:max-h-[calc(100%-5rem)] max-sm:w-full w-[v-bind('modalWidth')] bg-body rounded-lg shadow-lg overflow-auto p-2 relative;
+  @apply @container h-auto sm:max-h-[calc(100%-5rem)] max-sm:w-full w-[v-bind('modalWidth')] bg-background-accent border border-color-border rounded-lg shadow-lg overflow-auto p-2 relative;
 }
 .modal__header {
   @apply flex w-full py-2 min-h-[3.25rem] max-sm:min-h-11 relative;
@@ -124,15 +122,13 @@ watchEffect(() => {
   @apply @3xl:w-10 @3xl:h-10 @[640px]:w-8 @[640px]:h-8 w-6 h-6 rounded-full ml-auto;
 }
 .modal__btn--close svg {
-  @apply text-gray-400 mix-blend-difference;
+  @apply mix-blend-difference;
 }
 .modal__footer {
   @apply pt-1 pb-3;
 }
 .fade-enter-active,
-.fade-leave-active {
-  @apply transition-opacity duration-200 ease-in;
-}
+.fade-leave-active,
 .fade-enter-active .modal__fade,
 .fade-leave-active .modal__fade,
 .fade-enter-active .modal__slide-up,
@@ -143,7 +139,7 @@ watchEffect(() => {
 .fade-leave-active .modal__slide-left,
 .fade-enter-active .modal__slide-right,
 .fade-leave-active .modal__slide-right {
-  @apply transition-all duration-300 ease-in-out;
+  @apply duration-300 ease-in-out;
 }
 .fade-enter-from,
 .fade-leave-to {
@@ -155,28 +151,30 @@ watchEffect(() => {
 }
 .fade-enter-from .modal__slide-up,
 .fade-leave-to .modal__slide-up {
-  @apply translate-y-28;
+  @apply translate-y-[50%];
 }
 .fade-enter-from .modal__slide-down,
 .fade-leave-to .modal__slide-down {
-  @apply -translate-y-28;
+  @apply -translate-y-[50%];
 }
 .fade-enter-from .modal__slide-left,
 .fade-leave-to .modal__slide-left {
-  @apply translate-x-44;
+  @apply translate-x-[50%];
 }
 .fade-enter-from .modal__slide-right,
 .fade-leave-to .modal__slide-right {
-  @apply -translate-x-44;
+  @apply -translate-x-[50%];
 }
 .fade-leave-from .modal__slide-up,
 .fade-enter-to .modal__slide-up,
 .fade-leave-from .modal__slide-down,
-.fade-enter-to .modal__slide-down,
+.fade-enter-to .modal__slide-down {
+  @apply translate-y-0;
+}
 .fade-leave-from .modal__slide-left,
 .fade-enter-to .modal__slide-left,
 .fade-leave-from .modal__slide-right,
 .fade-enter-to .modal__slide-right {
-  @apply translate-y-0;
+  @apply translate-x-0;
 }
 </style>
