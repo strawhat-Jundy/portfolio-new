@@ -242,7 +242,7 @@ onMounted(startAutoplay);
   @apply absolute inset-0 w-full h-full flex items-center justify-between;
 }
 .carousel__btn {
-  @apply @3xl:w-14 @3xl:h-14 @md:w-10 @md:h-10 w-8 h-8 p-2 relative z-[2] text-white rounded-full bg-black bg-opacity-30 cursor-pointer transition-all duration-300 hover:bg-opacity-50;
+  @apply @3xl:w-14 @3xl:h-14 @md:w-10 @md:h-10 w-8 h-8 p-2 relative z-[2] text-white rounded-full bg-black bg-opacity-30 cursor-pointer duration-300 hover:bg-opacity-50;
 }
 .carousel__btn--left {
   @apply -translate-x-full;
@@ -263,7 +263,7 @@ onMounted(startAutoplay);
   @apply absolute @3xl:bottom-5 bottom-3 flex justify-center items-center w-full gap-2 z-[2];
 }
 .carousel__page {
-  @apply rounded-full @3xl:h-2.5 @3xl:w-2.5 h-2 w-2 bg-transparent cursor-pointer hover:scale-125 border border-white transition-all duration-500;
+  @apply rounded-full @3xl:h-2.5 @3xl:w-2.5 h-2 w-2 bg-transparent cursor-pointer hover:scale-125 border border-white duration-500;
 }
 .carousel__page.active {
   @apply bg-white scale-125;
@@ -274,7 +274,7 @@ onMounted(startAutoplay);
 .slide-prev-leave-active,
 .fade-enter-active,
 .fade-leave-active {
-  @apply transition-all duration-700;
+  @apply duration-700;
 }
 .slide-next-enter-from {
   @apply translate-x-full;

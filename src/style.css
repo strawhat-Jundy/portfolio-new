@@ -15,17 +15,22 @@
 @tailwind utilities;
 
 @layer base {
+  /* DEFAULTS */
   * {
-    @apply p-0 m-0 font-montserrat font-light tracking-wide scroll-smooth transition-all focus-visible:outline-none focus:outline-none;
+    @apply p-0 m-0 font-montserrat text-color-text font-light tracking-wide scroll-smooth transition-all duration-200 focus-visible:outline-none focus:outline-none;
   }
-
   body {
-    @apply bg-body duration-300;
+    @apply bg-background;
   }
 
   /* PARAGRAPH */
   p {
-    @apply mb-[10px] max-md:text-sm max-sm:text-xs text-color-text;
+    @apply mb-[10px] max-md:text-sm max-sm:text-xs;
+  }
+
+  /* CONTAINER */
+  .container-screen {
+    @apply md:pt-20 sm:pt-16 pt-14 h-screen overflow-hidden;
   }
 
   /* SCROLLBAR */
@@ -53,7 +58,9 @@
     --bs-info: 8 145 178;
   }
 
+  /* LIGHT THEME */
   [data-theme="light"] {
+    /* COLORS */
     --scroll-track: 243 244 246;
     --scroll-thumb: 212 212 212;
     --scroll-thumb-hover: 163 163 163;
@@ -63,9 +70,13 @@
     --color-reverse: 245 245 245;
     --color-heading: 15 55 85;
     --color-background: 255 248 240;
+    --color-background-accent: 255 250 245;
+    --color-border: 255 230 205;
   }
 
+  /* DARK THEME */
   [data-theme="dark"] {
+    /* COLORS */
     --scroll-track: 107 114 128;
     --scroll-thumb: 55 65 81;
     --scroll-thumb-hover: 31 41 55;
@@ -75,5 +86,7 @@
     --color-reverse: 51 51 51;
     --color-heading: 245 245 245;
     --color-background: 30 30 36;
+    --color-background-accent: 35 35 43;
+    --color-border: 46 46 55;
   }
 }

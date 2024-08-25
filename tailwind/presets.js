@@ -1,11 +1,15 @@
 module.exports = {
   darkMode: ["selector", "[data-theme='dark']"],
   theme: {
-    extend: {
-      fontFamily: {
-        montserrat: ["Montserrat", "system-ui", "sans-serif"],
-        poppins: ["Poppins", "system-ui", "sans-serif"],
+    container: {
+      padding: {
+        DEFAULT: "1rem",
+        sm: "3rem",
+        md: "4rem",
+        lg: "5rem",
       },
+    },
+    extend: {
       colors: {
         "bs-primary": "rgb(var(--bs-primary) / <alpha-value>)",
         "bs-secondary": "rgb(var(--bs-secondary) / <alpha-value>)",
@@ -21,20 +25,23 @@ module.exports = {
         "color-text": "rgb(var(--color-text) / <alpha-value>)",
         "color-text-reverse": "rgb(var(--color-reverse) / <alpha-value>)",
         "color-heading": "rgb(var(--color-heading) / <alpha-value>)",
-        body: "rgb(var(--color-background) / <alpha-value>)",
+        background: "rgb(var(--color-background) / <alpha-value>)",
+        "background-accent":
+          "rgb(var(--color-background-accent) / <alpha-value>)",
+        "color-border": "rgb(var(--color-border) / <alpha-value>)",
+      },
+      fontFamily: {
+        montserrat: ["Montserrat", "system-ui", "sans-serif"],
+        poppins: ["Poppins", "system-ui", "sans-serif"],
       },
       keyframes: {
-        "slide-left": {
-          "100%": { transform: "translateX(0)" },
-        },
-        "slide-up": {
-          "0%": { transform: "translateY(0)" },
-          "100%": { transform: "translateY(-150%)" },
-        },
         shrink: {
           "0%": { width: "100%" },
           "100%": { width: "0" },
         },
+      },
+      screens: {
+        xs: "480px",
       },
     },
   },
