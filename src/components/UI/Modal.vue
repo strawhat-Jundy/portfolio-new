@@ -107,19 +107,19 @@ watchEffect(() => {
 
 <style scoped>
 .modal {
-  @apply flex items-center p-1 justify-center h-screen w-full fixed inset-0 z-[800] bg-black bg-opacity-20 dark:bg-opacity-50;
+  @apply block h-screen w-full fixed inset-0 z-[800] bg-black bg-opacity-20 dark:bg-opacity-50 overflow-y-auto md:p-5 p-1;
 }
 .modal__wrapper {
-  @apply @container h-auto sm:max-h-[calc(100%-5rem)] max-sm:w-full w-[v-bind('modalWidth')] bg-background-accent border border-color-border rounded-lg shadow-lg overflow-auto p-2 relative;
+  @apply @container max-sm:w-full w-[v-bind('modalWidth')] bg-background-accent border border-color-border rounded-lg mx-auto md:my-8 shadow-lg overflow-auto p-2;
 }
 .modal__header {
-  @apply flex w-full py-2 min-h-[3.25rem] max-sm:min-h-11 relative;
+  @apply flex w-full md:py-2 py-1;
 }
 .modal__header h3 {
   @apply text-3xl font-bold;
 }
 .modal__btn--close {
-  @apply @3xl:w-10 @3xl:h-10 @[640px]:w-8 @[640px]:h-8 w-6 h-6 rounded-full ml-auto;
+  @apply @3xl:w-10 @3xl:h-10 @[640px]:w-8 @[640px]:h-8 @[480px]:w-6 @[480px]:h-6 w-4 h-4 rounded-full ml-auto;
 }
 .modal__btn--close svg {
   @apply mix-blend-difference;

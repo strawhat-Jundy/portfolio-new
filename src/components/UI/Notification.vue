@@ -77,7 +77,7 @@ defineExpose({
 
 <style scoped>
 .notification__container {
-  @apply w-full max-w-80 max-sm:max-w-60 flex flex-col gap-4 fixed z-[1000] right-4 top-4;
+  @apply w-full max-w-80 max-sm:max-w-60 flex flex-col sm:gap-4 gap-2 fixed z-[1000] right-4 top-4;
 }
 .notification {
   @apply w-full min-h-28 max-sm:min-h-24 px-5 py-4 bg-background-accent border border-color-border shadow-lg rounded-md relative overflow-hidden;
@@ -86,7 +86,7 @@ defineExpose({
   @apply after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:animate-[shrink] after:animate-duration-[v-bind('duration')];
 }
 .after--primary {
-  @apply after:bg-primary;
+  @apply after:bg-bs-primary;
 }
 .after--success {
   @apply after:bg-bs-success;

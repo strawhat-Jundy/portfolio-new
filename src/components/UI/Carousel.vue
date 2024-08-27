@@ -89,6 +89,7 @@ const props = defineProps({
     validator(val) {
       return val >= 1000;
     },
+    default: 3000,
   },
   pagination: Boolean,
   animation: {
@@ -242,7 +243,10 @@ onMounted(startAutoplay);
   @apply absolute inset-0 w-full h-full flex items-center justify-between;
 }
 .carousel__btn {
-  @apply @3xl:w-14 @3xl:h-14 @md:w-10 @md:h-10 w-8 h-8 p-2 relative z-[2] text-white rounded-full bg-black bg-opacity-30 cursor-pointer duration-300 hover:bg-opacity-50;
+  @apply @3xl:w-14 @3xl:h-14 @md:w-10 @md:h-10 w-8 h-8 p-2 relative z-[2] rounded-full bg-black bg-opacity-30 cursor-pointer duration-300 hover:bg-opacity-50;
+}
+.carousel__btn svg {
+  @apply stroke-white;
 }
 .carousel__btn--left {
   @apply -translate-x-full;
