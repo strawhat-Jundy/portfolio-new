@@ -6,16 +6,19 @@ import Button from "./UI/Button.vue";
 import Navbar from "./UI/Navbar.vue";
 import Toggle from "./UI/Toggle.vue";
 
-import Image1 from "../assets/carousel/Example1.jpg";
-import Image2 from "../assets/carousel/Example2.jpg";
-import Image3 from "../assets/carousel/Example3.jpg";
-import Image4 from "../assets/carousel/Example4.jpg";
-import Image5 from "../assets/carousel/Example5.jpg";
+import Image1 from "../assets/images/carousel/Example1.jpg";
+import Image2 from "../assets/images/carousel/Example2.jpg";
+import Image3 from "../assets/images/carousel/Example3.jpg";
+import Image4 from "../assets/images/carousel/Example4.jpg";
+import Image5 from "../assets/images/carousel/Example5.jpg";
 
 import Moon from "./Icons/Moon.vue";
 import Sun from "./Icons/Sun.vue";
 import Github from "./Icons/Github.vue";
 import LinkedIn from "./Icons/LinkedIn.vue";
+
+import CV from "../assets/documents/CV.pdf";
+
 import Logo from "../assets/logo/main.png";
 
 import {
@@ -72,23 +75,23 @@ const socials = shallowRef([
 
 const toggle = ref(true);
 
-const handleToggle = (value) => {
-  // console.log(value);
-};
+watchEffect(() => {
+  // console.log(toggle.value);
+});
 </script>
 
 <template>
   <Navbar
-    type="sticky"
+    type="collapse"
     :links="links"
     darkmode
     :logo="Logo"
     :socials="socials"
   />
-  <div class="pt-5 h-screen">
+
+  <div class="container container-screen">
     <Toggle
       v-model="toggle"
-      @change="handleToggle"
       :active-icon="Moon"
       :inactive-icon="Sun"
       active-color="#6b7280"
@@ -112,11 +115,23 @@ const handleToggle = (value) => {
         <Sun stroke-width="2" stroke="#eab308" class="p-[8%]" />
       </template>
     </Toggle>
-    <Button type="secondary" @click="showNotif">Show Notif</Button>
-    <Notification type="warning" ref="notif" :duration="0" />
-    <Modal :modal="modal" @close="modal = false" show-close>
+    <Button type="primary" @click="showNotif">Show Notif</Button>
+    <Notification ref="notif" :duration="3000" />
+    <Modal
+      :modal="modal"
+      @close="modal = false"
+      transition="slide-down"
+      show-close
+    >
       <Carousel :images="images" loop />
+      <!-- <iframe
+        class="w-full h-screen"
+        :src="CV"
+        loading="lazy"
+        frameborder="0"
+      ></iframe> -->
     </Modal>
+    <p v-for="item in 10" :key="item">This is a text</p>
   </div>
 </template>
 
