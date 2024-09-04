@@ -1,11 +1,21 @@
-import HelloWorld from "../components/HelloWorld.vue";
+import Home from "../components/Pages/Home.vue";
+import NotFound from "../components/Pages/404.vue";
 
 const routes = [
   {
     path: "/",
-    component: HelloWorld,
+    name: "Home",
+    component: Home,
     meta: {
       title: "Home",
+    },
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: NotFound,
+    meta: {
+      title: "Page Not Found",
     },
   },
 ];
