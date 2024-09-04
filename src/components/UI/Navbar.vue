@@ -2,12 +2,16 @@
   <nav v-bind="$attrs" class="navbar" :class="navbarClasses" ref="navbar">
     <div class="navbar__wrapper">
       <div v-if="logo" class="navbar__logo">
-        <img :src="logo" alt="Logo" />
+        <RouterLink to="/">
+          <img :src="logo" alt="Logo" />
+        </RouterLink>
       </div>
       <ul class="navbar__menu">
         <li v-for="link in links" :key="link">
-          <span :class="{ 'is--active': isActive(link.path) }"
-            ><a :href="link.path">{{ link.name }}</a></span
+          <span :class="{ 'is--active': $route.path === link.path }"
+            ><RouterLink @click="isOpen = false" :to="link.path">{{
+              link.name
+            }}</RouterLink></span
           >
         </li>
       </ul>
@@ -41,7 +45,6 @@
   </nav>
 </template>
 <script setup>
-import { useRouter } from "vue-router";
 import {
   computed,
   onBeforeMount,
@@ -53,9 +56,6 @@ import {
 
 /* TOGGLE COMPONENT */
 import Toggle from "./Toggle.vue";
-
-/* ROUTER */
-const router = useRouter();
 
 /* INHERIT COMPONENT ATTRIBUTES */
 defineOptions({
@@ -112,11 +112,6 @@ const handleResize = () => {
 
 const isMobile = computed(() => windowSize.value <= 767);
 const collapsible = computed(() => isMobile.value || props.type === "collapse");
-
-/* IS ACTIVE HANDLER */
-const isActive = (path) => {
-  return router.currentRoute.value.href === path;
-};
 
 /* DARKMODE HANDLER */
 const isLightMode = ref(null);
@@ -187,7 +182,7 @@ onBeforeMount(() => {
   @apply h-full flex justify-between items-center bg-background overflow-hidden;
 }
 .navbar__logo {
-  @apply h-[calc(100%-1rem)] lg:ml-20 md:ml-16 sm:ml-12 ml-6;
+  @apply h-[calc(100%-1rem)] md:ml-12 ml-6;
 }
 .navbar__logo img {
   @apply h-full object-contain contrast-[0.5] dark:invert-[1];
@@ -207,13 +202,13 @@ onBeforeMount(() => {
 }
 .navbar__menu span a:hover,
 .navbar__menu span.is--active a {
-  @apply after:translate-x-0;
+  @apply lg:after:translate-x-0;
 }
 .navbar__menu a {
   @apply text-xl max-md:text-lg max-sm:text-base font-normal;
 }
 .navbar__socials {
-  @apply flex justify-end items-center gap-2 lg:mr-20 md:mr-16 sm:mr-12 mr-6;
+  @apply flex justify-end items-center gap-2 md:mr-12 mr-6;
 }
 .social--icon {
   @apply w-full max-w-7 h-full p-0.5 border-2 border-color-text rounded fill-color-text hover:opacity-80;
@@ -258,7 +253,7 @@ onBeforeMount(() => {
   @apply top-16 max-sm:top-14;
 }
 .navbar__collapse .navbar__menu {
-  @apply h-screen md:gap-16 gap-10 top-0 pt-20 max-md:pt-16 max-sm:pt-14 overflow-y-auto;
+  @apply h-screen md:gap-16 gap-10 top-0 overflow-y-auto;
 }
 .is--collapsed:not(.menu__is--open) .navbar__menu,
 .navbar__collapse:not(.menu__is--open) .navbar__menu {
@@ -277,7 +272,7 @@ onBeforeMount(() => {
   @apply translate-y-0 delay-500;
 }
 .navbar__collapse .navbar__menu a {
-  @apply text-6xl max-lg:text-5xl max-md:text-4xl max-sm:text-3xl tracking-wider font-semibold;
+  @apply text-6xl max-lg:text-5xl max-md:text-4xl max-sm:text-3xl tracking-wider;
 }
 .is--collapsed .collapse--menu,
 .navbar__collapse .collapse--menu {

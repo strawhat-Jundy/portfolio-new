@@ -134,6 +134,9 @@ const isAnimating = ref(false);
 const nextSlide = () => {
   if (isAnimating.value) return;
 
+  // Pause autoplay
+  pauseAutoplay();
+
   isAnimating.value = true;
   direction.value = "next";
 
@@ -148,6 +151,9 @@ const nextSlide = () => {
 
 const prevSlide = () => {
   if (isAnimating.value) return;
+
+  // Pause autoplay
+  pauseAutoplay();
 
   isAnimating.value = true;
   direction.value = "prev";
@@ -174,6 +180,9 @@ const isLastImage = computed(
 
 /* PAGINATION HANDLER */
 const slideTo = (index) => {
+  // Pause autoplay
+  pauseAutoplay();
+
   direction.value = index + 1 > currentSlide.value ? "next" : "prev";
   currentSlide.value = index + 1;
 };
@@ -184,10 +193,40 @@ const transitionName = computed(() =>
 );
 
 /* AUTOPLAY HANDLER */
+const autoplayInterval = ref(null);
+
 const startAutoplay = () => {
   if (props.autoplay) {
-    setInterval(nextSlide, props.autoplay);
+    autoplayInterval.value = pausableInterval(nextSlide, props.autoplay);
   }
+};
+
+const pausableInterval = (callback, delay) => {
+  let intervalId;
+
+  const pause = () => {
+    clearInterval(intervalId);
+    intervalId = null;
+  };
+
+  const resume = () => {
+    if (intervalId) {
+      return;
+    }
+    intervalId = setInterval(callback, delay);
+  };
+
+  resume();
+
+  return {
+    pause,
+    resume,
+  };
+};
+
+const pauseAutoplay = () => {
+  autoplayInterval.value.pause();
+  setTimeout(autoplayInterval.value.resume, 3000);
 };
 
 /* ONTOUCH HANDLER */
@@ -280,17 +319,17 @@ onMounted(startAutoplay);
 .fade-leave-active {
   @apply duration-700;
 }
+.slide-prev-leave-to,
 .slide-next-enter-from {
   @apply translate-x-full;
 }
+.slide-prev-enter-from,
 .slide-next-leave-to {
   @apply -translate-x-full;
 }
-.slide-prev-enter-from {
-  @apply -translate-x-full;
-}
-.slide-prev-leave-to {
-  @apply translate-x-full;
+.slide-prev-enter-to,
+.slide-next-enter-to {
+  @apply translate-x-0;
 }
 .fade-enter-from,
 .fade-leave-to {

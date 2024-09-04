@@ -1,9 +1,10 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
-
 <template>
-  <HelloWorld />
+  <Header />
+  <RouterView />
 </template>
+
+<script setup>
+import Header from "./components/Layouts/Header.vue";
+</script>
 
 <style scoped></style>

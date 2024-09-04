@@ -1,3 +1,6 @@
+/** CUSTOM GLOBALS **/
+@import url("./css/section.css");
+
 /** Montserrat Font **/
 @font-face {
   font-family: "Montserrat";
@@ -28,11 +31,6 @@
     @apply mb-[10px] max-md:text-sm max-sm:text-xs;
   }
 
-  /* CONTAINER */
-  .container-screen {
-    @apply md:pt-20 sm:pt-16 pt-14 h-screen overflow-hidden;
-  }
-
   /* SCROLLBAR */
   ::-webkit-scrollbar {
     @apply w-1.5;
@@ -49,6 +47,7 @@
     @apply overflow-hidden w-[calc(100%-6px)];
   }
 
+  /* ROOT */
   :root {
     --bs-primary: 59 130 246;
     --bs-secondary: 107 114 128;
