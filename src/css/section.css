@@ -2,11 +2,3 @@
 .container-screen {
   @apply h-screen overflow-hidden md:px-12 px-6;
 }
-
-.center {
-  @apply flex justify-center items-center;
-}
-
-.center h1 {
-  @apply text-8xl;
-}
