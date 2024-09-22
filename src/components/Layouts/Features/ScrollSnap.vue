@@ -11,17 +11,20 @@
   </main>
   <div class="snap__wrapper">
     <span class="snap__pagination">
-      <a
+      <Router-Link
         v-for="(item, index) in components"
         :key="index"
         :class="{ 'is--active': hash === `#${item.path}` }"
-        :href="`#${item.path}`"
-      ></a>
+        :to="`#${item.path}`"
+      ></Router-Link>
     </span>
   </div>
 </template>
 <script setup>
-import { onMounted, onUnmounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch, watchEffect } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 /* PROPS */
 const props = defineProps({
@@ -42,10 +45,6 @@ const scrollTo = (index) => {
   hash.value = windowHash;
 };
 
-const handleHashChange = () => {
-  hash.value = window.location.hash;
-};
-
 const scrollToSection = (index) => {
   translateY.value = -(index * 100);
 };
@@ -56,6 +55,10 @@ watch(hash, (val) => {
 
   activeIndex.value = sectionIndex;
   scrollToSection(sectionIndex);
+});
+
+watchEffect(() => {
+  hash.value = route.hash || `#${props.components[0].path}`;
 });
 
 /* MOUSE WHEEL/TOUCHPAD HANDLER */
@@ -92,17 +95,6 @@ const resetAnimationState = () => {
     isAnimating.value = false;
   }, 1000);
 };
-
-/* HOOKS */
-onMounted(() => {
-  hash.value = window.location.hash || `#${props.components[0].path}`;
-
-  window.addEventListener("hashchange", handleHashChange);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("hashchange", handleHashChange);
-});
 </script>
 
 <style scoped>

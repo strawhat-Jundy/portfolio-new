@@ -7,7 +7,7 @@
 </template>
 <style scoped>
 main {
-  @apply bg-background;
+  @apply fixed top-0 w-full;
 }
 div {
   @apply h-screen flex justify-center items-center;
