@@ -182,10 +182,10 @@ onBeforeMount(() => {
   @apply h-full flex justify-between items-center bg-background overflow-hidden;
 }
 .navbar__logo {
-  @apply h-[calc(100%-1rem)] md:ml-12 ml-6;
+  @apply h-[calc(100%-1rem)] md:ml-28 ml-6;
 }
 .navbar__logo img {
-  @apply h-full object-contain contrast-[0.5] dark:invert-[1];
+  @apply h-full object-contain contrast-[0.55] dark:invert-[1] dark:contrast-[0.8];
 }
 .navbar__menu {
   @apply self-center flex items-center gap-5;
@@ -208,7 +208,7 @@ onBeforeMount(() => {
   @apply text-xl max-md:text-lg max-sm:text-base font-normal;
 }
 .navbar__socials {
-  @apply flex justify-end items-center gap-2 md:mr-12 mr-6;
+  @apply flex justify-end items-center gap-2 md:mr-28 mr-6;
 }
 .social--icon {
   @apply w-full max-w-7 h-full p-0.5 border-2 border-color-text rounded fill-color-text hover:opacity-80;
@@ -222,8 +222,11 @@ onBeforeMount(() => {
 .dark--mode :deep(.toggle__action) {
   @apply bg-[#FFF8F0];
 }
+.dark--mode :deep(.toggle__on .toggle__action) {
+  @apply h-[78%] left-[35%];
+}
 .half-moon {
-  @apply bg-[#FFF8F0] rounded-full shadow-[inset_10px_0_0_0_#1E1E24];
+  @apply bg-[#1E1E24] rounded-full relative before:block before:content-[''] before:h-full before:w-full before:rounded-full before:bg-[#FFF8F0] before:absolute before:left-[45%];
 }
 .navbar__collapse .navbar__menu,
 .is--collapsed .navbar__menu {

@@ -1,4 +1,4 @@
 /* CONTAINER */
 .container-screen {
-  @apply h-screen overflow-hidden md:px-12 px-6;
+  @apply h-screen overflow-hidden md:px-28 px-6 xs:py-28 py-14;
 }

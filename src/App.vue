@@ -1,9 +1,8 @@
 <template>
-  <div class="background__wrapper">
-    <div class="space"></div>
-  </div>
   <Header />
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <script setup>
@@ -11,10 +10,7 @@ import Header from "./components/Layouts/Header.vue";
 </script>
 
 <style scoped>
-.background__wrapper {
-  @apply h-screen w-screen fixed;
-}
-.space {
-  @apply w-full h-full bg-[radial-gradient(circle_at_120%_-40%,rgb(255,198,134)0%,rgb(255,210,158)35%,rgb(238,226,211)69%,rgb(255,248,240)80%)] dark:bg-[url("./assets/images/banner/stars.svg")] bg-no-repeat bg-cover;
+main {
+  @apply w-full h-screen bg-[radial-gradient(circle_at_-70%_-40%,rgb(255,198,134)0%,rgb(255,210,158)35%,rgb(238,226,211)69%,rgb(255,248,240)80%)] dark:bg-[radial-gradient(circle_at_-70%_-40%,rgb(59,59,74)0%,rgb(40,40,74)35%,rgb(33,33,44)69%,rgb(30,30,36)80%)] bg-no-repeat bg-cover;
 }
 </style>

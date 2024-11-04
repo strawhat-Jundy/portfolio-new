@@ -6,7 +6,15 @@
       @change="$emit('update:modelValue', $event.target.checked)"
     />
     <div class="toggle__wrapper" :class="toggleClasses" v-bind="$attrs">
-      <div class="toggle__inner">
+      <div
+        class="toggle__inner"
+        v-if="
+          activeText ||
+          $slots.activeInner ||
+          inactiveText ||
+          $slots.inactiveInner
+        "
+      >
         <component
           class="toggle__icon"
           :is="modelValue ? activeIcon : inactiveIcon"
@@ -100,7 +108,10 @@ const toggleClasses = computed(() => {
   @apply text-white text-[80%] uppercase whitespace-nowrap text-ellipsis overflow-hidden px-2;
 }
 .toggle__action {
-  @apply absolute left-[4px] rounded-full bg-white overflow-hidden;
+  @apply absolute left-[8%] h-[84%] aspect-square rounded-full bg-white overflow-hidden;
+}
+.toggle__on .toggle__action {
+  @apply left-1/3;
 }
 .toggle__inner :slotted(*),
 .toggle__action :slotted(*) {
@@ -121,12 +132,6 @@ const toggleClasses = computed(() => {
 .toggle__on.toggle__large .toggle__inner {
   @apply pl-0 pr-6;
 }
-.toggle__large .toggle__action {
-  @apply w-6 h-6;
-}
-.toggle__on.toggle__large .toggle__action {
-  @apply left-[calc(100%-29px)];
-}
 .toggle__default {
   @apply min-w-[3.75rem] h-7;
 }
@@ -136,12 +141,6 @@ const toggleClasses = computed(() => {
 .toggle__on.toggle__default .toggle__inner {
   @apply pl-0 pr-5;
 }
-.toggle__default .toggle__action {
-  @apply w-5 h-5;
-}
-.toggle__on.toggle__default .toggle__action {
-  @apply left-[calc(100%-25px)];
-}
 .toggle__small {
   @apply min-w-12 h-6;
 }
@@ -150,11 +149,5 @@ const toggleClasses = computed(() => {
 }
 .toggle__on.toggle__small .toggle__inner {
   @apply pl-0 pr-4;
-}
-.toggle__small .toggle__action {
-  @apply w-4 h-4;
-}
-.toggle__on.toggle__small .toggle__action {
-  @apply left-[calc(100%-21px)];
 }
 </style>

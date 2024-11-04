@@ -22,8 +22,14 @@
   * {
     @apply p-0 m-0 font-montserrat text-color-text font-light tracking-wide scroll-smooth transition-all duration-200 focus-visible:outline-none focus:outline-none;
   }
-  body {
-    @apply bg-background;
+
+  html {
+    @apply max-xs:text-[3.125vw];
+  }
+
+  /* HEADING */
+  h1 {
+    @apply md:text-8xl xs:text-6xl text-4xl text-color-text font-medium;
   }
 
   /* PARAGRAPH */
@@ -45,6 +51,11 @@
   /* MODAL */
   .modal__overlay--hidden {
     @apply overflow-hidden w-[calc(100%-6px)];
+  }
+
+  /* SEPARATOR */
+  .separator {
+    @apply block md:h-2 h-0.5 max-md:h-1 w-full bg-primary lg:my-8 md:my-6 sm:my-3 my-1;
   }
 
   /* ROOT */

@@ -1,14 +1,9 @@
 <template>
-  <main>
-    <div>
-      <h1>404 Not Found</h1>
-    </div>
-  </main>
+  <div>
+    <h1>404 Not Found</h1>
+  </div>
 </template>
 <style scoped>
-main {
-  @apply fixed top-0 w-full;
-}
 div {
   @apply h-screen flex justify-center items-center;
 }

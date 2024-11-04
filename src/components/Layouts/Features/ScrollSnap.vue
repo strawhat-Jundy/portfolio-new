@@ -1,30 +1,19 @@
 <template>
-  <main @mousewheel="handleOnWheel">
-    <section
+  <div @mousewheel="handleOnWheel" class="section__wrapper">
+    <div
+      class="section"
+      :class="{ visible: activeIndex === index }"
       v-for="(item, index) in components"
       :key="index"
       :id="item.path"
       :style="`transform: translateY(${translateY}%)`"
     >
       <component :is="item.component"></component>
-    </section>
-  </main>
-  <div class="snap__wrapper">
-    <span class="snap__pagination">
-      <Router-Link
-        v-for="(item, index) in components"
-        :key="index"
-        :class="{ 'is--active': hash === `#${item.path}` }"
-        :to="`#${item.path}`"
-      ></Router-Link>
-    </span>
+    </div>
   </div>
 </template>
 <script setup>
-import { onMounted, onUnmounted, ref, watch, watchEffect } from "vue";
-import { useRoute } from "vue-router";
-
-const route = useRoute();
+import { onMounted, ref, watch } from "vue";
 
 /* PROPS */
 const props = defineProps({
@@ -37,11 +26,10 @@ const props = defineProps({
 /* HASH HANDLER */
 const hash = ref("");
 const translateY = ref(0);
-const activeIndex = ref(null);
+const activeIndex = ref(0);
 
 const scrollTo = (index) => {
-  const windowHash = `#${props.components[index].path}`;
-  window.location.hash = windowHash;
+  const windowHash = props.components[index].path;
   hash.value = windowHash;
 };
 
@@ -50,15 +38,10 @@ const scrollToSection = (index) => {
 };
 
 watch(hash, (val) => {
-  const path = val.replace("#", "");
-  const sectionIndex = props.components.findIndex((item) => item.path === path);
-
+  const sectionIndex = props.components.findIndex((item) => item.path === val);
+  localStorage.setItem("sectionIndex", sectionIndex);
   activeIndex.value = sectionIndex;
   scrollToSection(sectionIndex);
-});
-
-watchEffect(() => {
-  hash.value = route.hash || `#${props.components[0].path}`;
 });
 
 /* MOUSE WHEEL/TOUCHPAD HANDLER */
@@ -95,25 +78,19 @@ const resetAnimationState = () => {
     isAnimating.value = false;
   }, 1000);
 };
+
+onMounted(() => {
+  const index = localStorage.sectionIndex ?? 0;
+  const windowHash = props.components[index].path;
+  hash.value = windowHash;
+});
 </script>
 
 <style scoped>
-main {
+.section__wrapper {
   @apply fixed top-0 w-full flex flex-col;
 }
-section {
-  @apply duration-300;
-}
-.snap__wrapper {
-  @apply fixed flex items-center justify-center md:top-0 md:left-[3rem] max-md:bottom-3 md:h-screen max-md:w-full;
-}
-.snap__pagination {
-  @apply flex sm:gap-10 gap-8 md:flex-col max-md:items-end;
-}
-.snap__pagination a {
-  @apply md:h-1 md:w-6 h-5 xs:w-1 w-0.5 rounded-full bg-color-text cursor-pointer duration-500;
-}
-.snap__pagination a.is--active {
-  @apply md:w-10 md:h-1 h-8;
+.section {
+  @apply h-screen duration-300;
 }
 </style>
