@@ -8,9 +8,9 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const { title, description } = to.meta;
-  const defaultTitle = "Jundy Mer Dimasu-ay";
+  const defaultTitle = "Juan Dela Cruz";
   const defaultDescription =
-    "This is a personal portfolio of Mr. Jundy Mer Dimasu-ay";
+    "This is a personal portfolio of Mr. Juan Dela Cruz";
 
   document.title = title ? `${title} | ${defaultTitle}` : defaultTitle;
 

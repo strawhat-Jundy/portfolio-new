@@ -2,7 +2,7 @@
   <div class="container-screen content">
     <div class="text__content">
       <span>HI! I AM</span>
-      <h1>JUAN DELA CRUZ</h1>
+      <h1>Juan Dela Cruz</h1>
       <span class="separator"></span>
       <div class="typer">
         <Type
