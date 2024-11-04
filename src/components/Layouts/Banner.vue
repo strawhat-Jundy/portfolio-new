@@ -2,7 +2,7 @@
   <div class="container-screen content">
     <div class="text__content">
       <span>HI! I AM</span>
-      <h1>Jundy Mer Dimasu-ay</h1>
+      <h1>JUAN DELA CRUZ</h1>
       <span class="separator"></span>
       <div class="typer">
         <Type
@@ -18,7 +18,7 @@
     </div>
     <div class="hero__image">
       <div class="image__wrapper">
-        <img src="../../assets/images/banner/front.png" alt="" />
+        <!-- <img src="../../assets/images/banner/front.png" alt="" /> -->
       </div>
     </div>
   </div>
